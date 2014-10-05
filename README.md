@@ -28,6 +28,21 @@ Vous pouvez télécharger ensuite un logiciel permettant de voir visuellement vo
 
 * [http://www.sequelpro.com/](http://www.sequelpro.com/) sur Mac
 
+##### Concepts
+
+Dans cette partie, nous allons commencer à travailler sur notre API et notre backoffice (arrière-guichet pour ceux qui préfèrent). Nous allons pour cela générer un ensemble d'élément suivant le pattern MVC dont nous allons rapidement rappeler le principe ici :
+
+* ** Un modèle ** : dans ce modèle, nous allons définir les champs, et c'est ensuite ce modèle qui effectuera les liens avec la base de données (sauvergarde, mise à jour etc...)
+* ** Un Controller ** : Gestion des événements, synchronisation etc...
+* ** Des vues ** : ces vues serviront à présenter l'interface utilisateur du backoffice
+* ** Des routes ** : les routes permettent de faire le lien entre l'url et la méthode du controller.
+
+Ressources utiles : 
+
+* [http://fr.wikipedia.org/wiki/Mod%C3%A8le-vue-contr%C3%B4leur#Contr.C3.B4leur](http://fr.wikipedia.org/wiki/Mod%C3%A8le-vue-contr%C3%B4leur#Contr.C3.B4leur)
+* [http://french.railstutorial.org/chapters/beginning#sec:mvc](http://french.railstutorial.org/chapters/beginning#sec:mvc)
+
+
 
 # Workshop
 
@@ -56,7 +71,7 @@ Vous pouvez télécharger ensuite un logiciel permettant de voir visuellement vo
 Votre base de données est maintenant créée.
  
  
-### Etape 2 : Génération de la ressource "shows"
+### Etape 2 : Génération du scaffold "shows"
 
 L'idée est de réaliser une API gérant les concerts. Nous allons donc avec des Shows, contenant ces informations :
 
@@ -67,20 +82,24 @@ L'idée est de réaliser une API gérant les concerts. Nous allons donc avec des
 	price
 	image
 
-##### Concepts
 
-Dans cette partie, nous allons commencer à travailler sur notre API et notre backoffice (arrière-guichet pour ceux qui préfèrent). Nous allons pour cela générer un ensemble d'élément suivant le pattern MVC dont nous allons rapidement rappeler le principe ici :
+* On va ensuite générer un scaffold, qui est un raccourci de Rails générant à la fois les vues, le controller, le modèle et les routes
 
-* ** Un modèle ** : dans ce modèle, nous allons définir les champs, et c'est ensuite ce modèle qui effectuera les liens avec la base de données (sauvergarde, mise à jour etc...)
-* ** Un Controller ** : Gestion des événements, synchronisation etc...
-* ** Des vues ** : ces vues serviront à présenter l'interface utilisateur du backoffice
-* ** Des routes ** : les routes permettent de faire le lien entre l'url et la méthode du controller.
+		$ rails g scaffold Show name:string location:string description:string capacity:integer price:integer image:string
+	
+* A ce moment là, Rails a créé un fichier de migration, qui correspond aux modifications qui vont être appliquées à la base de données. Ces modifications sont  dans un fichier présent dans le dossier `db/migrate/` : allez voir son contenu pour comprendre ce qu'il réalise. On va ensuite l'appliquer avec la commande 
 
-Ressources utiles : 
+	$ rake db:migrate
+	== 20141005134740 CreateShows: migrating ======================================
+	-- create_table(:shows)
+   		-> 0.0334s
+	== 20141005134740 CreateShows: migrated (0.0336s) =============================
+	
+* Ensuite, vous pouvez relancer votre serveur avec la commande `rails s` et ensuite ouvrez cette adresse avec votre navigateur préféré (Chrome) : [http://localhost:3000/shows](http://localhost:3000/shows)
 
-* [http://fr.wikipedia.org/wiki/Mod%C3%A8le-vue-contr%C3%B4leur#Contr.C3.B4leur](http://fr.wikipedia.org/wiki/Mod%C3%A8le-vue-contr%C3%B4leur#Contr.C3.B4leur)
-* [http://french.railstutorial.org/chapters/beginning#sec:mvc](http://french.railstutorial.org/chapters/beginning#sec:mvc)
-
+	
+### Etape 2
+	
 
 
 

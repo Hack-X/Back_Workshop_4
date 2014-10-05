@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :shows
+
   get 'home/index'
 
   root 'home#index'
