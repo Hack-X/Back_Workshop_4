@@ -158,9 +158,16 @@ L'avantage de Rails, c'est qu'il vous a déjà ajouté une API en JSON au moment
 
 C'est de cette manière (en appelant cette API JSON) que nous communiquerons entre l'application mobile et l'API.
 
-### Next STeps
+### Next Steps
 
-* Pour pré
+* Pour commencer, il faut penser à pusher sur Github son code
+
+		$ git add -A
+		$ git commit -m 'un message de commit'
+		$ git push
+		
+* Ensuite, la semaine prochaine nous allons faire 2 choses : le déploiement sur Heroku ainsi que l'ajout d'une adresse pour effectuer une réservation.
+
 
 
 
