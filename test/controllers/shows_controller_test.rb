@@ -18,7 +18,7 @@ class ShowsControllerTest < ActionController::TestCase
 
   test "should create show" do
     assert_difference('Show.count') do
-      post :create, show: { capacity: @show.capacity, description: @show.description, image: @show.image, location: @show.location, name: @show.name, price: @show.price }
+      post :create, show: { capacity: @show.capacity, date: @show.date, description: @show.description, image: @show.image, location: @show.location, name: @show.name, price: @show.price }
     end
 
     assert_redirected_to show_path(assigns(:show))
@@ -35,7 +35,7 @@ class ShowsControllerTest < ActionController::TestCase
   end
 
   test "should update show" do
-    patch :update, id: @show, show: { capacity: @show.capacity, description: @show.description, image: @show.image, location: @show.location, name: @show.name, price: @show.price }
+    patch :update, id: @show, show: { capacity: @show.capacity, date: @show.date, description: @show.description, image: @show.image, location: @show.location, name: @show.name, price: @show.price }
     assert_redirected_to show_path(assigns(:show))
   end
 

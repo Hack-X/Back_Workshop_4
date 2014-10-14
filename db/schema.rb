@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141005134740) do
+ActiveRecord::Schema.define(version: 20141012162331) do
 
   create_table "shows", force: true do |t|
     t.string   "name"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20141005134740) do
     t.integer  "capacity"
     t.integer  "price"
     t.string   "image"
+    t.date     "date"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

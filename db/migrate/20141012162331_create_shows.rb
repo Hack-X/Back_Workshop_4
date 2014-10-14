@@ -7,6 +7,7 @@ class CreateShows < ActiveRecord::Migration
       t.integer :capacity
       t.integer :price
       t.string :image
+      t.date :date
 
       t.timestamps
     end
