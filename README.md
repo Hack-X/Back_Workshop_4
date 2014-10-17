@@ -11,22 +11,14 @@ Prérequis :
 
 # Ressources
 
-#### MySQL
+#### Base de données
 
-Pour ce cours, nous utiliserons pour commencer la base de données **MySQL** qu'il vous faudra installer. 
+Dans cette version de l'atelier nous allons utiliser la base de données par défaut: sqlite3.
+Elle ne demande pas d'installation de logiciel comme d'autres bases de données (dont MySQL dont vous avez pu entendre parler).
+sqlite3 est moins performante que MySQL mais dans le cadre de cet atelier ca sera amplement suffisant et ruby on rails est préconfiguré pour fonctionner avec cette base de données.
 
-Le plus simple est d'aller la chercher à cet endroit : [http://dev.mysql.com/downloads/mysql/5.5.html](http://dev.mysql.com/downloads/mysql/5.5.html).
+Quand nous déploieront le code sur le cloud, nous n'utiliserons plus sqlite mais PostgreSQL. Il suffira de changer quelques fichiers de configuration pour faire la transition de Sqlite3 à PostgreSQL.
 
-A la fin de l'installation, vous devez avoir ceci en lançant la commande `mysql --version`
-   
-	$ mysql --version
-    mysql  Ver 14.14 Distrib 5.6.20, for osx10.10 (x86_64) 
-   
-#### Interface d'administration
-
-Vous pouvez télécharger ensuite un logiciel permettant de voir visuellement votre base de donnée. Nous vous recommandons ces logiciels :
-
-* [http://www.sequelpro.com/](http://www.sequelpro.com/) sur Mac
 
 ##### Concepts
 
@@ -48,18 +40,11 @@ Ressources utiles :
 
 ### Etape 1 : Création de la base de données
 
-* Nous allons commencer par ajouter la ligne `gem 'mysql' ` au ficher `Gemfile` : ce fichier contient tous les modules dont se sert notre application Rails, et cette gem va gérer la relation avec MySQL. Une fois la ligne ajoutée, il faut ensuite lancer la commande `bundle install` dans son Terminal / Console pour lancer l'installation de tous les modules recensés dans le Gemfile.
-
-		$ bundle install
-
-* Ensuite, nous allons modifier le fichier `config/database.yml`qui contient la configuration de notre base de données. Nous allons modifier la partie `development`(qui correspond à notre environnement de développement en local). Nous allons remplacer la partie `development` par ça :
+* Nous allons modifier le fichier `config/database.yml`qui contient la configuration de notre base de données. Nous allons modifier la partie `development`(qui correspond à notre environnement de développement en local). Nous allons remplacer la partie `development` par ça :
 
 		development:
- 	 	  adapter: mysql
-  		  host: localhost
-  		  database: shows_tonight_dev # Nom_de_votre_app_dev
-  		  username: root # Peut dépendre de votre install, comme le password
-  		  password:
+ 	 	  adapter: sqlite3
+  		  database: db/shows_tonight_development.sqlite3
   		  pool: 5
   		  timeout: 5000
   		  
@@ -90,12 +75,8 @@ L'idée est de réaliser une API gérant les concerts. Nous allons donc avec des
 	
 * A ce moment là, Rails a créé un fichier de migration, qui correspond aux modifications qui vont être appliquées à la base de données. Ces modifications sont  dans un fichier présent dans le dossier `db/migrate/` : allez voir son contenu pour comprendre ce qu'il réalise. On va ensuite l'appliquer avec la commande 
 
-	$ rake db:migrate
-	== 20141005134740 CreateShows: migrating ======================================
-	-- create_table(:shows)
-   		-> 0.0334s
-	== 20141005134740 CreateShows: migrated (0.0336s) =============================
-	
+		$ rake db:migrate
+		
 * Ensuite, vous pouvez relancer votre serveur avec la commande `rails s` et ensuite ouvrez cette adresse avec votre navigateur préféré (Chrome) : [http://localhost:3000/shows](http://localhost:3000/shows)
 
 Avec ce **scaffold**, vous avez généré automatiquement le code permettant de créer, administrer, modifier des shows. Je vous invite fortement à aller regarder précisément ces différents fichiers/dossiers :
