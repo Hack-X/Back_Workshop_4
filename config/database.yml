@@ -10,11 +10,8 @@ default: &default
   timeout: 5000
 
 development:
-  adapter: mysql
-  host: localhost
-  database: shows_tonight_dev # Nom_de_votre_app_dev
-  username: root              # Peut dépendre de votre install
-  password:                   # Idem
+  adapter: sqlite3
+  database: db/shows_tonight_development.sqlite3
   pool: 5
   timeout: 5000
 
