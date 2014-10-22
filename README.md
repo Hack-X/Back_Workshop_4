@@ -273,14 +273,89 @@ Cela signifie que tout s'est bien passé et que notre réservation a bien été 
 #### Prérequis
 
 Il faut penser tout d'abord à puis commiter et pusher son code sur Git pour réussir à faire la partie Heroku.
+
+Ensuite, nous allons créer un fichier de seed : c'est un fichier qui nous permettra de remplir du contenu facilement lors de l'installation d'une nouvelle base de donnée. Nous allons donc le remplir en lui disant de créer 2 shows d'exemple.
+
+Ajoutons ces lignes à la fin du fichier `db/seeds.rb` :
+
+```
+  Show.create(
+    name: "Mon premier Show",
+    location: "Salle Pleyel",
+    description: "Concert blabla",
+    capacity: 500,
+    price: 30,
+    image: "http://www.sallepleyel.fr/img/visuel/diaporama/salle_concert_scene.jpg",
+    date: "2014-10-30"
+  )
+
+  Show.create(
+    name: "Sébastien Tellier",
+    location: "Nouveau Casino",
+    description: "L'Aventura",
+    capacity: 500,
+    price: 36,
+    image: "http://www.gqmagazine.fr/uploads/images/201421/cc/l_aventura_de_s__bastien_tellier_7651.jpeg",
+    date: "2014-10-19"
+  )
+ ```
  
+ Ensuite, nous allons l'éxécuter avec la commande `rake db:seed` et vous pouvez allez voir le résultat sur le backoffice dans votre navigateur préféré.
+  
 #### Etape 1 : Création de compte et installation d'Heroku
 
 La première étape consiste à aller se créer un compte sur [Heroku](http://www.heroku.com), puis à suivre leurs instructions correspondant à votre plateforme disponible [ici](https://devcenter.heroku.com/articles/getting-started-with-ruby#set-up).
- 
- 
+
+Concrètement il vous faut :
+
+* Créer un compte sur Heroku
+* Télécharger la Heroku Toolbelt à l'URL précédemment donnée.
+* Puis se connecter dans sa console avec la commande `heroku login` et accepter la création d'une clé SSH si on en a pas encore
+* Créer son application avec la commande `heroku apps:create api-shows-tonight` (en remplaçant ce nom par un nom unique de votre choix)
 
 
+#### Etape 2 : Préparation de l'app
 
+En terme de base de donnée, Heroku ne supporte de base que **PostGreSQL**. Nous aurions pu l'utiliser en local depuis le début (et c'est recommandé dans un projet en production) mais dans notre cas nous allons utiliser une petite astuce : utiliser sqlite3 en développement et PostGreSQL en production.
+
+Pour faire ça, nous allons modifier notre `Gemfile` pour lui préciser qu'il doit utiliser la gem sqlite3 uniquement en développement et la gem 'pg' en production ainsi qu'une autre gem qui va nous simplifier la vie. Voilà les modifications à apporter au fichier :
+
+```
+gem 'sqlite3', group: :development
+
+group :production do
+  gem 'pg'
+  gem 'rails_12factor'
+end
+```
+
+Ensuite pour l'installer, vous pouvez utiliser la commande `bundle install`. (Si il y a un problème avec la gem pg, vous pouvez utiliser la commande `bundle install --without production`)
+
+Ensuite, il faut aller dans son fichier `database.yml` supprimer la partie concernant la production : Heroku s'en chargera pour nous.
+
+#### Etape 3 : Push sur Heroku
+
+Nous allons maintenant pouvoir envoyer notre application sur heroku avec la commande `git push heroku master`
+
+Cette commande prend un peu de temps, elle va envoyer tout le code sur Amazon Web Services, effectuer un `bundle install` et lancer notre application en production mais si tout se passe bien vous obtenez ça à la fin :
+
+```
+-----> Compressing... done, 23.7MB
+-----> Launching... done, v8
+       http://api-shows-tonight.herokuapp.com/ deployed to Heroku
+
+To git@heroku.perso:api-shows-tonight.git
+   3e440fc..040c8ec  master -> master
+```
+
+A ce moment là, on peut aller visiter l'URL donnée [http://api-shows-tonight.herokuapp.com/](http://api-shows-tonight.herokuapp.com/) et notre backoffice fonctionne !
+
+#### Etape 4  : Setup de la base de données
+
+Par contre, la page Shows affiche une erreur à ce moment là : en effet, la base de donnée n'a pas encore créée, ni migrée et remplie.
+
+On va donc effectuer la commande : `heroku run rake db:create db:migrate db:seed` qui correspond à la commande rake qu'on aurait effectué sur notre machine précédée de heroku run pour l'effectuer en ligne.
+
+Et là, magie, notre application est en ligne et l'API fonctionne !
 
 
