@@ -1,4 +1,5 @@
 class ShowsController < ApplicationController
+  # On ajoute la méthode book dans la liste des méthodes où on set le show au début
   before_action :set_show, only: [:show, :edit, :update, :destroy, :book]
 
   # On saute une etape de securite si on appel BOOK en JSON
@@ -66,7 +67,10 @@ class ShowsController < ApplicationController
 
   # POST /shows/1/book.json
   def book
+    # On crée un nouvel objet booking à partir des paramètres reçus
     @booking = Booking.new(booking_params)
+    # On précise que cet object Booking dépend du show concerné
+    @booking.show = @show
 
     respond_to do |format|
       if @booking.save
@@ -88,6 +92,7 @@ class ShowsController < ApplicationController
       params.require(:show).permit(:name, :location, :description, :capacity, :price, :image, :date)
     end
 
+    # On ajoute les paramètres qu'on va envoyer avec le booking
     def booking_params
       params.require(:booking).permit(:user_name, :seats)
     end
