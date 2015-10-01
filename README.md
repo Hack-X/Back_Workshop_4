@@ -32,7 +32,7 @@ Concrètement dans le code, ça veut dire plusieurs choses :
 
 Nous allons commencer par générer notre modèle uniquement en précisant, puis effectuer une migration de la base de données pour qu'elle se mette à jour.
 
-		$ rails g model Booking user_name:string number:integer show:references
+		$ rails g model Booking user_name:string seats:integer show:references
 		$ rake db:migrate
 		
 On va ensuite bien vérifier que les relations sont définies dans nos modèles, donc on va ajouter dans le fichier `app/models/show.rb` la ligne du milieu :
