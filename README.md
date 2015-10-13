@@ -64,6 +64,16 @@ Nous allons ajouter maintenant au `Gemfile` la gem qui va nous permettre de fair
 $ bundle install
 
 ```
+#### Model 
+
+Il faut ensuite ajouter la gem au model, on va donc modifier le fichier `show.rb` avec les lignes :
+
+```
+    acts_as_mappable :default_units => :kms,
+                   :default_formula => :sphere,
+                   :lat_column_name => :lat,
+                   :lng_column_name => :lng
+```
 
 #### TODO : Rails console
 
