@@ -11,6 +11,11 @@ class ShowsController < ApplicationController
     @shows = Show.all
   end
 
+  def nearby
+    distance = params[:distance] || 1
+    @shows = Show.within(distance, :units => :kms, :origin => [params[:lat], params[:lng]])
+  end
+
   # GET /shows/1
   # GET /shows/1.json
   def show

@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :shows
+  resources :shows do
+    collection do
+      get 'nearby'
+    end
+  end
 
   get 'home/index'
 

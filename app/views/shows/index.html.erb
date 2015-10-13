@@ -7,7 +7,7 @@
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:location) %></th>
+      <th><%= model_class.human_attribute_name(:venue) %></th>
       <th><%= model_class.human_attribute_name(:description) %></th>
       <th><%= model_class.human_attribute_name(:capacity) %></th>
       <th><%= model_class.human_attribute_name(:price) %></th>
@@ -22,7 +22,7 @@
       <tr>
         <td><%= link_to show.id, show_path(show) %></td>
         <td><%= show.name %></td>
-        <td><%= show.location %></td>
+        <td><%= show.venue %></td>
         <td><%= show.description %></td>
         <td><%= show.capacity %></td>
         <td><%= show.price %></td>

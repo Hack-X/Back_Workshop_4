@@ -2,7 +2,7 @@ class CreateShows < ActiveRecord::Migration
   def change
     create_table :shows do |t|
       t.string :name
-      t.string :location
+      t.string :venue
       t.string :description
       t.integer :capacity
       t.integer :price
