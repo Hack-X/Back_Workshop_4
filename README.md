@@ -117,6 +117,10 @@ On a ajouter une nouvelle méthode au controller `app/controller/shows_controlle
 
 ```
 
+#### Models
+
+Il faut maintenant penser à ajouter les coordonnées géographiques des spectacles à la réponse envoyée par le serveur : on va donc aller modifier tous les fichiers `index.json.jbuilder`, `nearby.json.jbuilder` et `show.json.jbuilder` pour y ajouter `, :lat, :lng` à la liste des champs envoyés par le serveur.
+
  
 ### Etape 4 : On teste !
 
